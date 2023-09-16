@@ -22,13 +22,13 @@ int _myhistory(info_t *info)
  */
 int unset_alias(info_t *info, char *str)
 {
-	char *p;
+	char *p, c;
 	int ret;
 
 	p = _strchr(str, '=');
 	if (!p)
 		return (1);
-	char c = *p;
+	c = *p;
 	*p = 0;
 	ret = delete_node_at_index(&(info->alias),
 		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
@@ -65,19 +65,20 @@ int set_alias(info_t *info, char *str)
  */
 int print_alias(list_t *node)
 {
+	char *p = NULL, *a = NULL;
+
 	if (node)
 	{
-		char *p = _strchr(node->str, '=');
-
-		for (char *a = node->str; a <= p; a++)
-		{
-			_putchar(*a);
-		}
+		p = _strchr(node->str, '=');
+		for (a = node->str; a <= p; a++)
+		_putchar(*a);
 		_putchar('\'');
 		_puts(p + 1);
+		_puts("'\n");
 		return (0);
 	}
 	return (1);
+
 }
 
 /**
